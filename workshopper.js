@@ -38,6 +38,7 @@ function Workshopper (options) {
   this.subtitle    = options.subtitle
   this.menuOptions = options.menu
   this.helpFile    = options.helpFile
+  this.setupFunction    = options.setupFunction
   this.width       = typeof options.width == 'number' ? options.width : defaultWidth
 
   this.appDir      = options.appDir
