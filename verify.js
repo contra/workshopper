@@ -89,6 +89,9 @@ function compare (actual, expected, opts) {
 
         opts.custom(function (err) {
           this.emit(!err ? 'pass' : 'fail')
+          if (err) {
+            this.queue(red(err.stack || err.message || err));
+          }
         }.bind(this))
       }
     , output = through(write, end).pause()
