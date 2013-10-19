@@ -165,6 +165,8 @@ Workshopper.prototype.dirFromName = function (name) {
   )
 }
 Workshopper.prototype.runSolution = function (setup, dir, current, run) {
+  if (!run && setup.ignoreStdout) return onpass.bind(this, setup, dir, current)();
+  
   console.log(
     bold(yellow((run ? 'Running' : 'Verifying') + ' "' + current + '"...')) + '\n'
   )
