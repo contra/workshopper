@@ -35,6 +35,7 @@ function showMenu (opts) {
   })
 
   menu.write(repeat('-', opts.width) + '\n')
+  menu.add(bold('SETUP'))
   menu.add(bold('HELP'))
   menu.add(bold('EXIT'))
   
@@ -48,6 +49,9 @@ function showMenu (opts) {
 
     if (name === bold('HELP'))
       return emitter.emit('help')
+
+    if (name === bold('SETUP'))
+      return emitter.emit('setup')
 
     emitter.emit('select', name)
   })
