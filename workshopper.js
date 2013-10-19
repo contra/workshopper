@@ -177,6 +177,7 @@ Workshopper.prototype.runSolution = function (setup, dir, current, run) {
         , long   : setup.long
         , run    : run
         , custom : setup.verify
+        , ignoreStdout: setup.ignoreStdout
       })
 
   v.on('pass', onpass.bind(this, setup, dir, current))
