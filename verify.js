@@ -57,6 +57,8 @@ function colourfn (type) {
 function compare (actual, expected, opts) {
   var equal  = true
     , write = function (pair) {
+        if (!pair[0] && !pair[1]) return;
+        if (opts.ignoreStdout) return;
         var eq = pair[0] === pair[1]
 
         equal = equal && eq
@@ -88,15 +90,18 @@ function compare (actual, expected, opts) {
           return this.emit('pass')
 
         opts.custom(function (err) {
-          this.emit(!err ? 'pass' : 'fail')
           if (err) {
-            this.queue(red(err.stack || err.message || err));
+            console.log('');
+            console.log(red('PROBLEM FOUND:'));
+            console.log(red(err.stack || err.message || err));
+            console.log('');
           }
+          this.emit(!err ? 'pass' : 'fail')
         }.bind(this))
       }
     , output = through(write, end).pause()
 
-  if (!opts.long) {
+  if (!opts.long && !opts.ignoreStdout) {
     output.queue(wrap('ACTUAL', 30) + '    EXPECTED\n')
     output.queue(wrap('------', 30) + '    --------\n')
   }
