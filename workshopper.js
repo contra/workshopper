@@ -52,7 +52,7 @@ function Workshopper (options) {
 }
 
 Workshopper.prototype.init = function () {
-  if (argv.setup)
+  if (argv.setup || argv._[0] == 'setup')
     return this._setup()
 
   if (argv.h || argv.help || argv._[0] == 'help')
@@ -134,7 +134,8 @@ Workshopper.prototype.printMenu = function () {
 
   menu.on('setup', function(){
     console.log();
-  });
+    return this._setup();
+  }.bind(this));
 }
 
 Workshopper.prototype.problems = function () {
@@ -256,6 +257,8 @@ Workshopper.prototype._printHelp = function () {
 Workshopper.prototype._setup = function () {
   if (this.setupFunction)
     this.setupFunction(this.name, this.appDir)
+  console.log('Setup completed.');
+  process.exit();
 }
 
 Workshopper.prototype._printUsage = function () {
